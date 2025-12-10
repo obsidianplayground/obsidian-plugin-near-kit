@@ -1,7 +1,7 @@
 import { Plugin } from "obsidian";
 // commands
 import { command_network_toggle } from "./commands/network_toggle";
-import { command_sign_in } from "./commands/requestSignIn";
+import { command_sign_in } from "./commands/sign_in";
 // ===============================================
 // ================= NEAR_KIT_PLUGIN =================
 export default class NEAR_KIT_PLUGIN extends Plugin {

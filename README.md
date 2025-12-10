@@ -14,6 +14,7 @@ bun i
 bun run dev
 bun run version
 bun run build
+bun run tsc -noEmit
 ```
 
 ---

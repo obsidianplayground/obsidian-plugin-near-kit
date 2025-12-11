@@ -43,7 +43,7 @@ export default class NEAR_KIT_PLUGIN extends Plugin {
 			id: "view",
 			name: "VIEW METHOD",
 			callback: () => {
-				command_near_view();
+				command_near_view(this.app);
 			},
 		});
 		//
@@ -52,7 +52,7 @@ export default class NEAR_KIT_PLUGIN extends Plugin {
 			id: "call",
 			name: "CALL METHOD",
 			callback: () => {
-				command_near_call();
+				command_near_call(this.app);
 			},
 		});
 	} // onload closing

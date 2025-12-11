@@ -37,7 +37,9 @@ export const command_near_view = async (app: App) => {
 					contractId,
 					methodName,
 				);
-				editor.replaceRange(near_view_const, currentPosition);
+				// Convert result to string, handling undefined case
+				const resultString = near_view_const !== undefined ? JSON.stringify(near_view_const, null, 2) : "No data returned";
+				editor.replaceRange(resultString, currentPosition);
 			} else {
 				new Notice("No methodName found");
 			}

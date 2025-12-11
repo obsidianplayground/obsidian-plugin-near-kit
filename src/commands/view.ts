@@ -1,8 +1,7 @@
 // src/commands/view.ts
 import { App, MarkdownView, Notice } from "obsidian";
 import { nearClient } from "src/near-kit/new";
-//
-// =================================================================
+import { extractNearContractData, validateNearContractData, ArgsType } from "src/near-kit/frontmatter_utils";
 
 // =================================================================
 // ======================== command_near_view ========================
@@ -23,52 +22,40 @@ export const command_near_view = async (app: App) => {
 		new Notice("No frontmatter found in current file");
 		return;
 	}
-	// const
-	const contractId = fileCache.frontmatter.contractId;
-	const methodName = fileCache.frontmatter.methodName;
-	const args = fileCache.frontmatter.args;
-	const editor = app.workspace.getActiveViewOfType(MarkdownView)?.editor;
 
-	// Check if we have the required parameters
+	const editor = app.workspace.getActiveViewOfType(MarkdownView)?.editor;
 	if (!editor) {
 		new Notice("No active editor found");
 		return;
 	}
 
-	if (!contractId) {
-		new Notice("No contractId found");
+	// Extract and validate contract data from frontmatter
+	let contractData;
+	try {
+		contractData = extractNearContractData(fileCache.frontmatter);
+	} catch (error) {
+		new Notice(error.message);
 		return;
 	}
 
-	if (!methodName) {
-		new Notice("No methodName found");
+	const validation = validateNearContractData(contractData);
+	if (!validation.isValid) {
+		validation.errors.forEach(error => new Notice(error));
 		return;
 	}
 
 	try {
-		// Handle the case where args might be parsed as a string from frontmatter
-		let processedArgs = args;
-		if (args !== undefined && typeof args === 'string') {
-			try {
-				processedArgs = JSON.parse(args);
-			} catch (parseError) {
-				new Notice('Invalid JSON format for args in frontmatter');
-				console.error('Error parsing args:', parseError);
-				return;
-			}
-		}
-
 		// Call the view method with processed args
 		const near_view_const = await nearClient().view(
-			contractId,
-			methodName,
-			processedArgs
+			contractData.contractId!,
+			contractData.methodName!,
+			contractData.args as ArgsType
 		);
 
 		console.log("========= NEAR KIT: VIEW METHOD =========");
-		console.log(contractId);
-		console.log(methodName);
-		console.log(processedArgs);
+		console.log(contractData.contractId);
+		console.log(contractData.methodName);
+		console.log(contractData.args);
 		console.log("=========================================");
 		console.log(near_view_const);
 		console.log("=========================================");

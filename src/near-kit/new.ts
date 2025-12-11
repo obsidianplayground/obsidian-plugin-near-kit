@@ -22,13 +22,13 @@ export const MAINNET_MY_BACKEND_NEAR_privateKey: PrivateKey | undefined = localS
 // Multiple clients with different configurations
 export const near_testnetClient = new Near({
   network: "testnet",
-  privateKey: TESTNET_MY_BACKEND_NEAR_privateKey,
-  defaultSignerId: TESTNET_MY_BACKEND_NEAR_accountId,
+  ...(TESTNET_MY_BACKEND_NEAR_privateKey && { privateKey: TESTNET_MY_BACKEND_NEAR_privateKey }),
+  ...(TESTNET_MY_BACKEND_NEAR_accountId && { defaultSignerId: TESTNET_MY_BACKEND_NEAR_accountId }),
 })
 export const near_mainnetClient = new Near({
   network: "mainnet",
-  privateKey: MAINNET_MY_BACKEND_NEAR_privateKey,
-  defaultSignerId: MAINNET_MY_BACKEND_NEAR_accountId,
+  ...(MAINNET_MY_BACKEND_NEAR_privateKey && { privateKey: MAINNET_MY_BACKEND_NEAR_privateKey }),
+  ...(MAINNET_MY_BACKEND_NEAR_accountId && { defaultSignerId: MAINNET_MY_BACKEND_NEAR_accountId }),
 })
 //
 //

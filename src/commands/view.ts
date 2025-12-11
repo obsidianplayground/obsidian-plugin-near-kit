@@ -32,14 +32,14 @@ export const command_near_view = async (app: App) => {
 	if (editor) {
 		if (contractId) {
 			if (methodName) {
-				const currentPosition = editor.getCursor();
 				const near_view_const = await nearClient().view(
 					contractId,
 					methodName,
 				);
-				// Convert result to string, handling undefined case
-				const resultString = near_view_const !== undefined ? JSON.stringify(near_view_const, null, 2) : "No data returned";
-				editor.replaceRange(resultString, currentPosition);
+				// Wrap result in code block, handling undefined case
+				const resultString = near_view_const !== undefined ? "```json\n" + JSON.stringify(near_view_const, null, 2) + "\n```" : "No data returned";
+				const endPosition = { line: editor.lineCount(), ch: 0 };
+				editor.replaceRange("\n" + resultString, endPosition);
 			} else {
 				new Notice("No methodName found");
 			}

@@ -2,6 +2,9 @@ import { Plugin } from "obsidian";
 // commands
 import { command_network_toggle } from "./commands/network_toggle";
 import { command_sign_in } from "./commands/sign_in";
+import { command_near_view } from "./commands/view";
+import { command_near_call } from "./commands/call";
+import { command_sign_out } from "./commands/sign_out";
 // ===============================================
 // ================= NEAR_KIT_PLUGIN =================
 export default class NEAR_KIT_PLUGIN extends Plugin {
@@ -23,6 +26,33 @@ export default class NEAR_KIT_PLUGIN extends Plugin {
 			name: "SIGN IN",
 			callback: () => {
 				command_sign_in();
+			},
+		});
+		//
+		// sign_out
+		this.addCommand({
+			id: "sign_out",
+			name: "SIGN OUT",
+			callback: () => {
+				command_sign_out();
+			},
+		});
+		//
+		// view
+		this.addCommand({
+			id: "view",
+			name: "VIEW METHOD",
+			callback: () => {
+				command_near_view();
+			},
+		});
+		//
+		// call
+		this.addCommand({
+			id: "call",
+			name: "CALL METHOD",
+			callback: () => {
+				command_near_call();
 			},
 		});
 	} // onload closing

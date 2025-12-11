@@ -11,7 +11,7 @@ export const MAINNET_ACCOUNT_ID_STORAGE_KEY_CONST = "mainnet_account_id";
 export const MAINNET_PRIVATE_KEY_STORAGE_KEY_CONST = "mainnet_private_key";
 //
 // MY_BACKEND_ENV
-export const MY_BACKEND_NEAR_networkId: "mainnet" | "testnet" | "localnet" | "betanet" | { rpcUrl: string; networkId: string; } = (localStorage.getItem(NETWORK_STORAGE_KEY_CONST) as "mainnet" | "testnet" | "localnet" | "betanet") || "testnet";
+// export const MY_BACKEND_NEAR_networkId: "mainnet" | "testnet" | "localnet" | "betanet" | { rpcUrl: string; networkId: string; } = (localStorage.getItem(NETWORK_STORAGE_KEY_CONST) as "mainnet" | "testnet" | "localnet" | "betanet") || "testnet";
 // testnet
 export const TESTNET_MY_BACKEND_NEAR_accountId: string | undefined = localStorage.getItem(TESTNET_ACCOUNT_ID_STORAGE_KEY_CONST) || undefined;
 export const TESTNET_MY_BACKEND_NEAR_privateKey: PrivateKey | undefined = localStorage.getItem(TESTNET_PRIVATE_KEY_STORAGE_KEY_CONST) as PrivateKey | undefined;

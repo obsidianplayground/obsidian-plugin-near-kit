@@ -55,6 +55,9 @@ export const command_near_view = async (app: App) => {
 		}
 
 		console.log("========= NEAR KIT: VIEW METHOD =========");
+		console.log(contractId)
+		console.log(methodName)
+		console.log(args)
 		console.log("=========================================");
 		console.log(near_view_const);
 		console.log("=========================================");

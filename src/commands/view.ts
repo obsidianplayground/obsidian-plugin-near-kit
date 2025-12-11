@@ -1,6 +1,6 @@
 // src/commands/view.ts
-import { App, MarkdownView, Notice } from 'obsidian';
-import { nearClient } from 'src/near-kit/new';
+import { App, MarkdownView, Notice } from "obsidian";
+import { nearClient } from "src/near-kit/new";
 //
 // =================================================================
 
@@ -9,7 +9,7 @@ import { nearClient } from 'src/near-kit/new';
 export const command_near_view = async (app: App) => {
 	const activeFile = app.workspace.getActiveFile();
 	if (!activeFile) {
-		new Notice('No active file found');
+		new Notice("No active file found");
 		return;
 	}
 
@@ -18,9 +18,9 @@ export const command_near_view = async (app: App) => {
 		const editor = app.workspace.getActiveViewOfType(MarkdownView)?.editor;
 		if (editor) {
 			const currentPosition = editor.getCursor();
-			editor.replaceRange('TX data not fount\n', currentPosition);
+			editor.replaceRange("TX data not fount\n", currentPosition);
 		}
-		new Notice('No frontmatter found in current file');
+		new Notice("No frontmatter found in current file");
 		return;
 	}
 	// const
@@ -33,17 +33,19 @@ export const command_near_view = async (app: App) => {
 		if (contractId) {
 			if (methodName) {
 				const currentPosition = editor.getCursor();
-				editor.replaceRange(`Hello ${name}\n`, currentPosition);
-				new Notice(`Name property: ${name}`);
+				const near_view_const = await nearClient().view(
+					contractId,
+					methodName,
+				);
+				editor.replaceRange(near_view_const, currentPosition);
+			} else {
+				new Notice("No methodName found");
 			}
 		} else {
-			const currentPosition = editor.getCursor();
-			editor.replaceRange('Hello Name not found\n', currentPosition);
-			new Notice('Name property not found in frontmatter');
+			new Notice("No contractId found");
 		}
 	} else {
-		new Notice('No active editor found');
+		new Notice("No active editor found");
 	}
-	
 };
 // ========================================================================

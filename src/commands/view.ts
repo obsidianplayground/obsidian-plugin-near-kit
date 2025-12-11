@@ -28,30 +28,45 @@ export const command_near_view = async (app: App) => {
 	const methodName = fileCache.frontmatter.methodName;
 	const args = fileCache.frontmatter.args;
 	const editor = app.workspace.getActiveViewOfType(MarkdownView)?.editor;
-	if (editor) {
-		if (contractId) {
-			if (methodName) {
-				const near_view_const = await nearClient().view(
-					contractId,
-					methodName,
-				);
-				console.log("========= NEAR KIT: VIEW METHOD =========");
-				console.log("=========================================");
-				console.log(near_view_const);
-				console.log("=========================================");
-				// Add timestamp and wrap result in code block, handling undefined case
-				const timestamp = new Date().toLocaleString();
-				const resultString = near_view_const !== undefined ? `#### ${timestamp}\n\`\`\`json\n${JSON.stringify(near_view_const, null, 2)}\n\`\`\`` : `#### ${timestamp}\nNo data returned`;
-				const endPosition = { line: editor.lineCount(), ch: 0 };
-				editor.replaceRange("\n" + resultString, endPosition);
-			} else {
-				new Notice("No methodName found");
-			}
-		} else {
-			new Notice("No contractId found");
-		}
-	} else {
+
+	// Check if we have the required parameters
+	if (!editor) {
 		new Notice("No active editor found");
+		return;
+	}
+
+	if (!contractId) {
+		new Notice("No contractId found");
+		return;
+	}
+
+	if (!methodName) {
+		new Notice("No methodName found");
+		return;
+	}
+
+	try {
+		// Call the view method with args if provided
+		let near_view_const;
+		if (args !== undefined) {
+			near_view_const = await nearClient().view(contractId, methodName, args);
+		} else {
+			near_view_const = await nearClient().view(contractId, methodName);
+		}
+
+		console.log("========= NEAR KIT: VIEW METHOD =========");
+		console.log("=========================================");
+		console.log(near_view_const);
+		console.log("=========================================");
+
+		// Add timestamp and wrap result in code block, handling undefined case
+		const timestamp = new Date().toLocaleString();
+		const resultString = near_view_const !== undefined ? `#### ${timestamp}\n\`\`\`json\n${JSON.stringify(near_view_const, null, 2)}\n\`\`\`` : `#### ${timestamp}\nNo data returned`;
+		const endPosition = { line: editor.lineCount(), ch: 0 };
+		editor.replaceRange("\n" + resultString, endPosition);
+	} catch (error) {
+		console.error("Error calling NEAR view method:", error);
+		new Notice(`Error calling view method: ${error.message}`);
 	}
 };
 // ========================================================================

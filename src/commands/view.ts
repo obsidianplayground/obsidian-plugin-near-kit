@@ -27,7 +27,6 @@ export const command_near_view = async (app: App) => {
 	const contractId = fileCache.frontmatter.contractId;
 	const methodName = fileCache.frontmatter.methodName;
 	const args = fileCache.frontmatter.args;
-	const options = fileCache.frontmatter.options;
 	const editor = app.workspace.getActiveViewOfType(MarkdownView)?.editor;
 	if (editor) {
 		if (contractId) {

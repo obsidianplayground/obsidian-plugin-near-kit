@@ -36,6 +36,10 @@ export const command_near_view = async (app: App) => {
 					contractId,
 					methodName,
 				);
+				console.log("========= NEAR KIT: VIEW METHOD =========")
+				console.log("=========================================")
+				console.log(near_view_const)
+				console.log("=========================================")
 				// Wrap result in code block, handling undefined case
 				const resultString = near_view_const !== undefined ? "```json\n" + JSON.stringify(near_view_const, null, 2) + "\n```" : "No data returned";
 				const endPosition = { line: editor.lineCount(), ch: 0 };

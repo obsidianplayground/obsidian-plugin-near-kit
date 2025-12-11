@@ -46,18 +46,29 @@ export const command_near_view = async (app: App) => {
 	}
 
 	try {
-		// Call the view method with args if provided
-		let near_view_const;
-		if (args !== undefined) {
-			near_view_const = await nearClient().view(contractId, methodName, args);
-		} else {
-			near_view_const = await nearClient().view(contractId, methodName);
+		// Handle the case where args might be parsed as a string from frontmatter
+		let processedArgs = args;
+		if (args !== undefined && typeof args === 'string') {
+			try {
+				processedArgs = JSON.parse(args);
+			} catch (parseError) {
+				new Notice('Invalid JSON format for args in frontmatter');
+				console.error('Error parsing args:', parseError);
+				return;
+			}
 		}
 
+		// Call the view method with processed args
+		const near_view_const = await nearClient().view(
+			contractId,
+			methodName,
+			processedArgs
+		);
+
 		console.log("========= NEAR KIT: VIEW METHOD =========");
-		console.log(contractId)
-		console.log(methodName)
-		console.log(args)
+		console.log(contractId);
+		console.log(methodName);
+		console.log(processedArgs);
 		console.log("=========================================");
 		console.log(near_view_const);
 		console.log("=========================================");

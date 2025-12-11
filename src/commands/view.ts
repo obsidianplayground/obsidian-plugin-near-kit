@@ -40,7 +40,7 @@ export const command_near_view = async (app: App) => {
 				console.log(near_view_const);
 				console.log("=========================================");
 				// Add timestamp and wrap result in code block, handling undefined case
-				const timestamp = new Date().toISOString();
+				const timestamp = new Date().toLocaleString();
 				const resultString = near_view_const !== undefined ? `#### ${timestamp}\n\`\`\`json\n${JSON.stringify(near_view_const, null, 2)}\n\`\`\`` : `#### ${timestamp}\nNo data returned`;
 				const endPosition = { line: editor.lineCount(), ch: 0 };
 				editor.replaceRange("\n" + resultString, endPosition);

@@ -3,7 +3,7 @@
 	"name": "NEAR KIT",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "near blockchain interaction for obsidian",
+	"description": "near blockchain interaction for obsidian.",
 	"author": "SLEET",
 	"authorUrl": "https://sleet.near.page/",
 	"isDesktopOnly": false

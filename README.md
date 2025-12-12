@@ -40,7 +40,7 @@ bun run build
 ---
 
 ## USE THE PLUGIN
-use via command palette (⌘ + p on mac)
+use via obsidian command palette (⌘ + p on mac)
 
 ##### COMMANDS
 

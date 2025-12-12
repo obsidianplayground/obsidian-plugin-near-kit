@@ -51,7 +51,7 @@ SIGN IN
 - saves info to local storage
 
 SIGN OUT
-- clears plug created local storage items
+- clears plug-in created local storage items
 
 VIEW METHOD
 - for view only methods
@@ -62,7 +62,7 @@ VIEW METHOD
 CALL METHOD
 - for function call transactions
 - requires sign in with account id and private key
-- inserts tx results at cursor position
+- inserts tx results at bottom of the file
 
 
 ---

@@ -45,12 +45,12 @@ export const command_near_view = async (app: App) => {
 	}
 
 	try {
-		// Call the view method with processed args and options
+		// Call the view method with processed args and options (pass undefined if options is empty/null)
 		const near_view_const = await nearClient().view(
 			contractData.contractId!,
 			contractData.methodName!,
 			contractData.args as ArgsType,
-			contractData.options // Pass the options parameter
+			contractData.options || undefined // Pass undefined if options is empty/null
 		);
 
 		console.log("========= NEAR KIT: VIEW METHOD =========");

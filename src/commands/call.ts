@@ -45,12 +45,12 @@ export const command_near_call = async (app: App) => {
 	}
 
 	try {
-		// Call the contract method with args and options
+		// Call the contract method with args and options (pass undefined if options is empty/null)
 		const near_call_result = await nearClient().call(
 			contractData.contractId!,
 			contractData.methodName!,
 			contractData.args as ArgsType,
-			contractData.options // Pass the options parameter
+			contractData.options || undefined // Pass undefined if options is empty/null
 		);
 
 		console.log("========= NEAR KIT: CALL METHOD =========");

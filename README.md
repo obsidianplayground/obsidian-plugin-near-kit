@@ -65,6 +65,8 @@ CALL METHOD
 - inserts tx results at bottom of the file
 
 
+🧪 test the plugin and see sample markdown files for transactions in my [obsidian-vault-near](https://github.com/obsidianplayground/obsidian-vault-near)
+
 ---
 
 copyright 2025 by sleet.near

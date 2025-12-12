@@ -25,7 +25,7 @@ export default class NEAR_KIT_PLUGIN extends Plugin {
 			id: "sign_in",
 			name: "SIGN IN",
 			callback: () => {
-				command_sign_in();
+				command_sign_in(this.app);
 			},
 		});
 		//

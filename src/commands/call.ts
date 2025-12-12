@@ -62,9 +62,14 @@ export const command_near_call = async (app: App) => {
 		console.log(near_call_result);
 		console.log("=========================================");
 
-		// Add timestamp and wrap result in code block, handling undefined case
+		// Add timestamp and specific results to markdown, handling undefined case
 		const timestamp = new Date().toLocaleString();
-		const resultString = near_call_result !== undefined ? `#### ${timestamp}\n\`\`\`json\n${JSON.stringify(near_call_result, null, 2)}\n\`\`\`` : `#### ${timestamp}\nNo data returned`;
+
+		// Extract the specific values you want
+		const finalExecutionStatus = near_call_result?.final_execution_status;
+		const transactionHash = near_call_result?.transaction?.hash;
+
+		const resultString = `#### ${timestamp}\nFinal Execution Status: ${finalExecutionStatus}\nTransaction Hash: ${transactionHash}`;
 		const endPosition = { line: editor.lineCount(), ch: 0 };
 		editor.replaceRange("\n" + resultString, endPosition);
 	} catch (error) {

@@ -39,7 +39,7 @@ export class SignInScreenModal extends Modal {
       .setDesc('Enter your testnet account ID (optional)')
       .addText(text => 
         text
-          .setPlaceholder('account.near')
+          .setPlaceholder('account.testnet')
           .setValue(localStorage.getItem(TESTNET_ACCOUNT_ID_STORAGE_KEY_CONST) || '')
           .onChange(value => {
             if (value.trim() !== '') {
